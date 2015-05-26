@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class IdentifierCollection
- * @package OliverHader\Interceptor\Service
+ * @package OliverHader\Interceptor\Domain\Object
  */
 class IdentifierCollection extends \ArrayObject {
 

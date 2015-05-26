@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class TableIdentifierCollection
- * @package OliverHader\Interceptor\Service
+ * @package OliverHader\Interceptor\Domain\Object
  */
 class TableIdentifierCollection extends \ArrayObject {
 

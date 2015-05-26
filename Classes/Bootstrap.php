@@ -54,8 +54,6 @@ class Bootstrap {
 			DataHandlerHook::className();
 		$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['interceptor'] =
 			DataHandlerHook::className();
-
-		// @todo Frontend Finish actions (-> write and clear caches)
 	}
 
 	/**
