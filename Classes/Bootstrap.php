@@ -66,15 +66,6 @@ class Bootstrap {
 	}
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapFactory
-	 */
-	static public function getDataMapFactory() {
-		return static::getObjectManager()->get(
-			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Mapper\\DataMapFactory'
-		);
-	}
-
-	/**
 	 * @return \TYPO3\CMS\Extbase\Object\ObjectManager
 	 */
 	static public function getObjectManager() {

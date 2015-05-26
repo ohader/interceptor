@@ -15,8 +15,8 @@ namespace OliverHader\Interceptor\Service;
  */
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use OliverHader\Interceptor\Domain\Object\TableDefinitionCollection;
-use OliverHader\Interceptor\Bootstrap;
 
 /**
  * Class RegistryService
@@ -28,7 +28,7 @@ class RegistryService implements SingletonInterface {
 	 * @return RegistryService
 	 */
 	static public function instance() {
-		return Bootstrap::getObjectManager()->get(__CLASS__);
+		return GeneralUtility::makeInstance(__CLASS__);
 	}
 
 	/**

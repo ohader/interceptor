@@ -15,8 +15,8 @@ namespace OliverHader\Interceptor\Service;
  */
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use OliverHader\Interceptor\Domain\Object\TableIdentifierCollection;
-use OliverHader\Interceptor\Bootstrap;
 
 /**
  * Class MonitorService
@@ -28,7 +28,7 @@ class MonitorService implements SingletonInterface {
 	 * @return MonitorService
 	 */
 	static public function instance() {
-		return Bootstrap::getObjectManager()->get(__CLASS__);
+		return GeneralUtility::makeInstance(__CLASS__);
 	}
 
 	/**

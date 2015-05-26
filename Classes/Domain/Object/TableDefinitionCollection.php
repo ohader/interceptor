@@ -14,7 +14,7 @@ namespace OliverHader\Interceptor\Domain\Object;
  * The TYPO3 project - inspiring people to share!
  */
 
-use OliverHader\Interceptor\Bootstrap;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class TableDefinitionCollection
@@ -26,7 +26,7 @@ class TableDefinitionCollection extends \ArrayObject {
 	 * @return TableDefinitionCollection
 	 */
 	static public function instance() {
-		return Bootstrap::getObjectManager()->get(__CLASS__);
+		return GeneralUtility::makeInstance(__CLASS__);
 	}
 
 	/**

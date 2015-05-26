@@ -15,7 +15,6 @@ namespace OliverHader\Interceptor\Domain\Object;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use OliverHader\Interceptor\Bootstrap;
 
 /**
  * Class TableIdentifierCollection
@@ -27,7 +26,7 @@ class TableIdentifierCollection extends \ArrayObject {
 	 * @return TableIdentifierCollection
 	 */
 	static public function instance() {
-		return Bootstrap::getObjectManager()->get(__CLASS__);
+		return GeneralUtility::makeInstance(__CLASS__);
 	}
 
 	/**

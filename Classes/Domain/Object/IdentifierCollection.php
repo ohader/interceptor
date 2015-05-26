@@ -14,7 +14,7 @@ namespace OliverHader\Interceptor\Domain\Object;
  * The TYPO3 project - inspiring people to share!
  */
 
-use OliverHader\Interceptor\Bootstrap;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class IdentifierCollection
@@ -27,7 +27,7 @@ class IdentifierCollection extends \ArrayObject {
 	 * @return IdentifierCollection
 	 */
 	static public function instance($tableName) {
-		return Bootstrap::getObjectManager()->get(__CLASS__, $tableName);
+		return GeneralUtility::makeInstance(__CLASS__, $tableName);
 	}
 
 	/**
