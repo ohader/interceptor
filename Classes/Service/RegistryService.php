@@ -64,8 +64,24 @@ class RegistryService implements SingletonInterface {
 	/**
 	 * @param string $tableName
 	 */
-	public function add($tableName) {
+	public function onAll($tableName) {
 		$this->fetchCollection->append($tableName);
+		$this->updateCollection->append($tableName);
+		$this->insertCollection->append($tableName);
+		$this->removeCollection->append($tableName);
+	}
+
+	/**
+	 * @param string $tableName
+	 */
+	public function onFetch($tableName) {
+		$this->fetchCollection->append($tableName);
+	}
+
+	/**
+	 * @param string $tableName
+	 */
+	public function onModify($tableName) {
 		$this->updateCollection->append($tableName);
 		$this->insertCollection->append($tableName);
 		$this->removeCollection->append($tableName);
