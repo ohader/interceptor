@@ -78,4 +78,12 @@ class IdentifierCollection extends \ArrayObject {
 		return $arrayCopy;
 	}
 
+	/**
+	 * @param string $glue
+	 * @return string
+	 */
+	public function implodeArrayCopy($glue) {
+		return implode(',', $this->getArrayCopy());
+	}
+
 }
