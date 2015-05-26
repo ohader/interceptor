@@ -36,7 +36,7 @@ class IdentifierCollection extends \ArrayObject {
 	protected $tableName;
 
 	/**
-	 * Overrides default constructor.
+	 * @param string $tableName
 	 */
 	public function __construct($tableName) {
 		$this->setTableName($tableName);
