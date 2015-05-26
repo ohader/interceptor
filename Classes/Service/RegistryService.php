@@ -15,7 +15,7 @@ namespace OliverHader\Interceptor\Service;
  */
 
 use TYPO3\CMS\Core\SingletonInterface;
-use OliverHader\Interceptor\Domain\Object\TableNameCollection;
+use OliverHader\Interceptor\Domain\Object\TableDefinitionCollection;
 use OliverHader\Interceptor\Bootstrap;
 
 /**
@@ -32,22 +32,22 @@ class RegistryService implements SingletonInterface {
 	}
 
 	/**
-	 * @var TableNameCollection
+	 * @var TableDefinitionCollection
 	 */
 	protected $fetchCollection;
 
 	/**
-	 * @var TableNameCollection
+	 * @var TableDefinitionCollection
 	 */
 	protected $updateCollection;
 
 	/**
-	 * @var TableNameCollection
+	 * @var TableDefinitionCollection
 	 */
 	protected $insertCollection;
 
 	/**
-	 * @var TableNameCollection
+	 * @var TableDefinitionCollection
 	 */
 	protected $removeCollection;
 
@@ -55,61 +55,64 @@ class RegistryService implements SingletonInterface {
 	 * Creates this object.
 	 */
 	public function __construct() {
-		$this->fetchCollection = TableNameCollection::instance();
-		$this->updateCollection = TableNameCollection::instance();
-		$this->insertCollection = TableNameCollection::instance();
-		$this->removeCollection = TableNameCollection::instance();
+		$this->fetchCollection = TableDefinitionCollection::instance();
+		$this->updateCollection = TableDefinitionCollection::instance();
+		$this->insertCollection = TableDefinitionCollection::instance();
+		$this->removeCollection = TableDefinitionCollection::instance();
 	}
 
 	/**
 	 * @param string $tableName
+	 * @param NULL|callable $callback
 	 */
-	public function onAll($tableName) {
-		$this->fetchCollection->append($tableName);
-		$this->updateCollection->append($tableName);
-		$this->insertCollection->append($tableName);
-		$this->removeCollection->append($tableName);
+	public function onAll($tableName, $callback = NULL) {
+		$this->fetchCollection->append($tableName, $callback);
+		$this->updateCollection->append($tableName, $callback);
+		$this->insertCollection->append($tableName, $callback);
+		$this->removeCollection->append($tableName, $callback);
 	}
 
 	/**
 	 * @param string $tableName
+	 * @param NULL|callable $callback
 	 */
-	public function onFetch($tableName) {
-		$this->fetchCollection->append($tableName);
+	public function onFetch($tableName, $callback = NULL) {
+		$this->fetchCollection->append($tableName, $callback);
 	}
 
 	/**
 	 * @param string $tableName
+	 * @param NULL|callable $callback
 	 */
-	public function onModify($tableName) {
-		$this->updateCollection->append($tableName);
-		$this->insertCollection->append($tableName);
-		$this->removeCollection->append($tableName);
+	public function onModify($tableName, $callback = NULL) {
+		$this->updateCollection->append($tableName, $callback);
+		$this->insertCollection->append($tableName, $callback);
+		$this->removeCollection->append($tableName, $callback);
 	}
 
 	/**
-	 * @return TableNameCollection
+	 * @return TableDefinitionCollection
 	 */
 	public function getFetchCollection() {
 		return $this->fetchCollection;
 	}
 
 	/**
-	 * @return TableNameCollection
+	 * @return TableDefinitionCollection
 	 */
 	public function getUpdateCollection() {
 		return $this->updateCollection;
 	}
 
 	/**
-	 * @return TableNameCollection
+	 * @return TableDefinitionCollection
 	 */
 	public function getInsertCollection() {
 		return $this->insertCollection;
 	}
 
 	/**
-	 * @return TableNameCollection
+	 * @return TableDefinitionCollection
 	 */
 	public function getRemoveCollection() {
 		return $this->removeCollection;

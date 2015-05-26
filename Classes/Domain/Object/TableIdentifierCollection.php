@@ -14,6 +14,7 @@ namespace OliverHader\Interceptor\Domain\Object;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use OliverHader\Interceptor\Bootstrap;
 
 /**
@@ -30,7 +31,7 @@ class TableIdentifierCollection extends \ArrayObject {
 	}
 
 	/**
-	 * @var TableNameCollection
+	 * @var TableDefinitionCollection
 	 */
 	protected $ask;
 
@@ -41,11 +42,11 @@ class TableIdentifierCollection extends \ArrayObject {
 	}
 
 	/**
-	 * @param TableNameCollection $tableNameCollection
+	 * @param TableDefinitionCollection $tableDefinitionCollection
 	 * @return TableIdentifierCollection
 	 */
-	public function setAsk(TableNameCollection $tableNameCollection) {
-		$this->ask = $tableNameCollection;
+	public function setAsk(TableDefinitionCollection $tableDefinitionCollection) {
+		$this->ask = $tableDefinitionCollection;
 		return $this;
 	}
 
@@ -54,8 +55,22 @@ class TableIdentifierCollection extends \ArrayObject {
 	 * @param int $identifier
 	 */
 	public function append($tableName, $identifier) {
-		if ($this->ask !== NULL && $this->ask->has($tableName)) {
-			$this->get($tableName)->append($identifier);
+		// Ask, whether to append the identifier
+		if ($this->ask !== NULL && !$this->ask->has($tableName)) {
+			return;
+		}
+
+		$this->get($tableName)->append($identifier);
+
+		// Delegate to callbacks (if any)
+		if ($this->ask !== NULL) {
+			$callbackParameters = array(
+				'tableName' => $tableName,
+				'identifier' => $identifier,
+			);
+			foreach ($this->ask->get($tableName)->getCallbacks() as $callback) {
+				GeneralUtility::callUserFunction($callback, $callbackParameters, $this);
+			}
 		}
 	}
 
@@ -80,7 +95,7 @@ class TableIdentifierCollection extends \ArrayObject {
 	 * @return bool
 	 */
 	public function has($tableName) {
-		return ($this->offsetExists($tableName));
+		return $this->offsetExists($tableName);
 	}
 
 }

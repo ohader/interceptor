@@ -17,13 +17,13 @@ namespace OliverHader\Interceptor\Domain\Object;
 use OliverHader\Interceptor\Bootstrap;
 
 /**
- * Class TableNameCollection
+ * Class TableDefinitionCollection
  * @package OliverHader\Interceptor\Service
  */
-class TableNameCollection extends \ArrayObject {
+class TableDefinitionCollection extends \ArrayObject {
 
 	/**
-	 * @return TableNameCollection
+	 * @return TableDefinitionCollection
 	 */
 	static public function instance() {
 		return Bootstrap::getObjectManager()->get(__CLASS__);
@@ -33,7 +33,26 @@ class TableNameCollection extends \ArrayObject {
 	 * Overrides default constructor.
 	 */
 	public function __construct() {
+	}
 
+	/**
+	 * @param string $tableName
+	 * @param NULL|callable $callback
+	 */
+	public function append($tableName, $callback = NULL) {
+		$this->get($tableName)->getCallbacks()->append($callback);
+	}
+
+	/**
+	 * @param string $tableName
+	 * @return NULL|TableDefinition
+	 */
+	public function get($tableName) {
+		if (!$this->has($tableName)) {
+			$this->offsetSet($tableName, TableDefinition::instance($tableName));
+		}
+
+		return $this->offsetGet($tableName);
 	}
 
 	/**
@@ -41,7 +60,7 @@ class TableNameCollection extends \ArrayObject {
 	 * @return bool
 	 */
 	public function has($tableName) {
-		return (in_array($tableName, $this->getArrayCopy()));
+		return $this->offsetExists($tableName);
 	}
 
 }
