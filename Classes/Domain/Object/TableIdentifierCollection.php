@@ -30,9 +30,23 @@ class TableIdentifierCollection extends \ArrayObject {
 	}
 
 	/**
+	 * @var TableNameCollection
+	 */
+	protected $ask;
+
+	/**
 	 * Overrides default constructor.
 	 */
 	public function __construct() {
+	}
+
+	/**
+	 * @param TableNameCollection $tableNameCollection
+	 * @return TableIdentifierCollection
+	 */
+	public function setAsk(TableNameCollection $tableNameCollection) {
+		$this->ask = $tableNameCollection;
+		return $this;
 	}
 
 	/**
@@ -40,14 +54,20 @@ class TableIdentifierCollection extends \ArrayObject {
 	 * @param int $identifier
 	 */
 	public function append($tableName, $identifier) {
-		$this->get($tableName)->append($identifier);
+		if ($this->ask !== NULL && $this->ask->has($tableName)) {
+			$this->get($tableName)->append($identifier);
+		}
 	}
 
 	/**
 	 * @param string $tableName
-	 * @return IdentifierCollection
+	 * @return NULL|IdentifierCollection
 	 */
 	public function get($tableName) {
+		if ($this->ask !== NULL && !$this->ask->has($tableName)) {
+			return NULL;
+		}
+
 		if (!$this->has($tableName)) {
 			$this->offsetSet($tableName, IdentifierCollection::instance($tableName));
 		}

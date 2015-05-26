@@ -55,10 +55,16 @@ class MonitorService implements SingletonInterface {
 	 * Creates this object.
 	 */
 	public function __construct() {
-		$this->fetchCollection = TableIdentifierCollection::instance();
-		$this->updateCollection = TableIdentifierCollection::instance();
-		$this->insertCollection = TableIdentifierCollection::instance();
-		$this->removeCollection = TableIdentifierCollection::instance();
+		$registryService = RegistryService::instance();
+
+		$this->fetchCollection = TableIdentifierCollection::instance()
+			->setAsk($registryService->getFetchCollection());
+		$this->updateCollection = TableIdentifierCollection::instance()
+			->setAsk($registryService->getUpdateCollection());
+		$this->insertCollection = TableIdentifierCollection::instance()
+			->setAsk($registryService->getInsertCollection());
+		$this->removeCollection = TableIdentifierCollection::instance()
+			->setAsk($registryService->getRemoveCollection());
 	}
 
 	/**

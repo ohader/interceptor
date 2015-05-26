@@ -92,17 +92,6 @@ class PersistenceBackendHook implements SingletonInterface {
 		}
 
 		/**
-		 * @see RegistryService::getFetchCollection
-		 * @see RegistryService::getUpdateCollection
-		 * @see RegistryService::getInsertCollection
-		 * @see RegistryService::getRemoveCollection
-		 */
-		$registryMethod = 'get' . ucfirst($type) . 'Collection';
-		if (!$this->registryService->{$registryMethod}()->has($arguments['tableName'])) {
-			return FALSE;
-		}
-
-		/**
 		 * @see MonitorService::getFetchCollection
 		 * @see MonitorService::getUpdateCollection
 		 * @see MonitorService::getInsertCollection

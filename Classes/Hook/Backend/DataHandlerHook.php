@@ -78,17 +78,6 @@ class DataHandlerHook implements SingletonInterface {
 		}
 
 		/**
-		 * @see RegistryService::getFetchCollection
-		 * @see RegistryService::getUpdateCollection
-		 * @see RegistryService::getInsertCollection
-		 * @see RegistryService::getRemoveCollection
-		 */
-		$registryMethod = 'get' . ucfirst($type) . 'Collection';
-		if (!RegistryService::instance()->{$registryMethod}()->has($tableName)) {
-			return FALSE;
-		}
-
-		/**
 		 * @see MonitorService::getFetchCollection
 		 * @see MonitorService::getUpdateCollection
 		 * @see MonitorService::getInsertCollection
