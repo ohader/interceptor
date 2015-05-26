@@ -2,7 +2,7 @@
 
 ## Register
 
-Register table names in ```ext_tables.php```
+Register table names in ```ext_localconf.php```
 
 ```
 	RegistryService::instance()->onAll(
